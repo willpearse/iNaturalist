@@ -17,7 +17,7 @@ options[:species] = ""
 
 OptionParser.new do |opts|
   #Defaults
-  opts.banner = "search: Searching iNaturalist for specific data\nUsage: search.rb [options]"
+  opts.banner = "search: Searching iNaturalist for specific data\nUsage: search.rb [options]\nExample:./search.rb -s 'quercus' -o test.csv\n\n"
   opts.on_tail("-h", "--help", "Show this message") do
     puts opts
     exit
@@ -30,7 +30,7 @@ OptionParser.new do |opts|
   opts.on("-p PHOTOS", "--photos BOOL", "Whether obs. have photos (default: true)") {|x| options[:photos] = x.to_s}
   opts.on("-r RANK", "--rank LEVEL", "Taxonomic level for identification (default: species)") {|x| options[:rank] = x.to_s}
   opts.on("-s SPECIES", "--species NAME", "Species to search for (default: blank)") {|x| options[:species] = x.to_s}
-  opts.on("-v VERIFIABLE", "--verifiable BOOL", "Search for verifiable (reserch grade and IDed species) (default: true)") {|x| options[:verifiable] = x.to_s}
+  opts.on("-v VERIFIABLE", "--verifiable BOOL", "Search for verifiable (reserch grade and IDed) (default: true)") {|x| options[:verifiable] = x.to_s}
   opts.on("-")
 end.parse!
 
