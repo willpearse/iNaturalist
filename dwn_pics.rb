@@ -49,8 +49,8 @@ CSV.open(options[:output], "w") do |row|
     page["results"].each do |record|
       id = record["id"]
       species = record["taxon"]["name"]
-      lat = record["geojson"]["coordinates"][0]
-      long = record["geojson"]["coordinates"][1]
+      lat = record["geojson"]["coordinates"][1]
+      long = record["geojson"]["coordinates"][0]
       date_time = record["time_observed_at"]
       image_url = record["photos"][0]["url"]
       row << [id, species, lat, long, date_time, image_url]
