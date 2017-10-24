@@ -34,14 +34,16 @@ OptionParser.new do |opts|
   opts.on("-")
 end.parse!
 
-
-
 curr_page = 1; downloaded = 0
+
+taxon_id = JSON.parse(open("http://api.inaturalist.org/v1/taxa/autocomplete?q=#{options[:species]}").read)["results"][0]["id"]
+puts "Downloading TaxonID #{taxon_id}"
+
 CSV.open(options[:output], "w") do |row|
   row << ["id", "species", "lat", "long", "date_time", "image_url"]
   
   while downloaded < options[:number]
-    page = JSON.parse(open("http://api.inaturalist.org/v1/observations?geo=#{options[:geo]}&identified=#{options[:identified]}&photos=#{options[:photos]}&rank=#{options[:rank]}&order=desc&order_by=created_at&taxon_name=#{options[:species]}&verifiable=#{options[:verifiable]}&page=#{curr_page}").read)
+    page = JSON.parse(open("http://api.inaturalist.org/v1/observations?geo=#{options[:geo]}&identified=#{options[:identified]}&photos=#{options[:photos]}&rank=#{options[:rank]}&order=desc&order_by=created_at&taxon_id=#{taxon_id}&verifiable=#{options[:verifiable]}&page=#{curr_page}").read)
     if page["total_results"] <= downloaded then exit end
     page["results"].each do |record|
       id = record["id"]
